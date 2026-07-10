@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitShare - GitHub File Uploader</title>
+  <meta name="description" content="Upload files directly to your GitHub repository and get instant raw githubusercontent URLs.">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-decorations">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <i class="fa-brands fa-github logo-icon"></i>
+        <h1>Git<span>Share</span></h1>
+      </div>
+      <p class="subtitle">Upload files directly to GitHub & get raw CDN links instantly</p>
+      <div class="repo-badge" id="repoBadge">
+        <i class="fa-solid fa-code-fork"></i>
+        <span id="repoName">KakashiSan69/ss</span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="uploader-section card">
+        <!-- File Dropzone -->
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" class="file-input" />
+          <div class="dropzone-content">
+            <div class="icon-circle">
+              <i class="fa-solid fa-cloud-arrow-up cloud-icon"></i>
+            </div>
+            <h3>Drag & drop your file here</h3>
+            <p class="browse-text">or <span class="highlight">browse files</span> from your computer</p>
+            <span class="file-limit">Maximum file size: 25 MB</span>
+          </div>
+        </div>
+
+        <!-- Selected File Preview -->
+        <div class="file-preview hidden" id="filePreview">
+          <div class="file-info-container">
+            <div class="file-icon-wrapper">
+              <i class="fa-regular fa-file-lines file-type-icon" id="previewIcon"></i>
+            </div>
+            <div class="file-meta">
+              <h4 class="file-name" id="previewName">filename.ext</h4>
+              <span class="file-size" id="previewSize">0 KB</span>
+            </div>
+            <button class="remove-btn" id="removeFileBtn" title="Remove file">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <button class="btn btn-primary btn-block" id="uploadBtn">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Upload to GitHub
+          </button>
+        </div>
+
+        <!-- Upload Status / Progress -->
+        <div class="upload-status hidden" id="uploadStatus">
+          <div class="status-header">
+            <span class="status-title" id="statusTitle">Uploading file...</span>
+            <span class="status-percentage" id="statusPercent">0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+          </div>
+          <p class="status-subtitle" id="statusSubtitle">This may take a moment depending on the file size.</p>
+        </div>
+
+        <!-- Upload Success/Result Panel -->
+        <div class="result-panel hidden" id="resultPanel">
+          <div class="success-header">
+            <div class="success-icon-circle">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3>Upload Successful!</h3>
+            <p>Your file is live on GitHub content delivery network.</p>
+          </div>
+
+          <div class="url-card">
+            <div class="url-label">Raw CDN URL:</div>
+            <div class="url-input-group">
+              <input type="text" id="rawUrlInput" class="url-input" readonly />
+              <button class="copy-btn" id="copyUrlBtn" title="Copy URL">
+                <i class="fa-regular fa-copy"></i>
+                <span class="tooltip">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <a href="#" id="viewRawBtn" target="_blank" class="btn btn-secondary">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Raw File
+            </a>
+            <button id="uploadMoreBtn" class="btn btn-text">
+              Upload another file
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- History Section -->
+      <section class="history-section card">
+        <div class="history-header">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Recent Uploads</h3>
+          <button class="clear-btn" id="clearHistoryBtn" title="Clear history">
+            Clear All
+          </button>
+        </div>
+        <div class="history-empty" id="historyEmpty">
+          <i class="fa-regular fa-folder-open empty-icon"></i>
+          <p>No files uploaded yet. Your history will appear here.</p>
+        </div>
+        <ul class="history-list hidden" id="historyList">
+          <!-- Dynamic Items will be injected here -->
+        </ul>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>GitShare &bull; Connected to <span class="footer-highlight">KakashiSan69/ss</span></p>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
